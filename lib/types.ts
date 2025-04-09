@@ -35,4 +35,3 @@ export interface TaskFilters {
   projectId?: string
   assignedTo?: string
 }
-

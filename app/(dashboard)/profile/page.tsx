@@ -19,7 +19,7 @@ export default function ProfilePage() {
   // Mock user data - in a real app, this would come from your auth context
   const user = {
     name: "John Doe",
-    email: "jdoe@example.com",
+    email: "john.doe@example.com",
     avatar: "/avatar.png",
     role: "Admin",
     joinedDate: "January 2023",
@@ -136,4 +136,3 @@ export default function ProfilePage() {
     </div>
   )
 }
-

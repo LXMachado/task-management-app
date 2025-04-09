@@ -124,3 +124,21 @@
   @apply outline-none ring-2 ring-primary/70 ring-offset-2 ring-offset-background;
 }
 
+/* Custom calendar responsive styles */
+.calendar-grid {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .calendar-grid button {
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .calendar-grid button {
+    height: 1.75rem;
+    font-size: 0.75rem;
+  }
+}

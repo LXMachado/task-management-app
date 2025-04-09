@@ -81,4 +81,3 @@ export function GoogleCalendarIntegration({ isConnected = false }: GoogleCalenda
     </Card>
   )
 }
-

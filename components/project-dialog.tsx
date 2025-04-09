@@ -131,4 +131,3 @@ export function ProjectDialog({ open, onOpenChange, projectToEdit }: ProjectDial
     </Dialog>
   )
 }
-

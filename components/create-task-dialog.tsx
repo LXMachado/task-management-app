@@ -240,4 +240,3 @@ export function CreateTaskDialog({ open, onOpenChange, taskToEdit }: CreateTaskD
     </Dialog>
   )
 }
-

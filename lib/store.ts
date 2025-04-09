@@ -70,8 +70,7 @@ export const useTaskStore = create<TaskState>()(
       setFilters: (filters) => set({ filters }),
     }),
     {
-      name: "task-management-storage",
+      name: "taskudo-storage", // Updated storage key
     },
   ),
 )
-

@@ -57,4 +57,3 @@ export function KanbanColumn({ title, tasks, status }: KanbanColumnProps) {
     </div>
   )
 }
-

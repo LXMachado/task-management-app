@@ -6,58 +6,51 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Eye, EyeOff, Loader2, FolderKanban } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 
-const signUpSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
+const loginSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
+  password: z.string().min(1, {
+    message: "Password is required.",
   }),
+  rememberMe: z.boolean().optional(),
 })
 
-type SignUpValues = z.infer<typeof signUpSchema>
+type LoginValues = z.infer<typeof loginSchema>
 
-export default function SignUpPage() {
+export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  const form = useForm<SignUpValues>({
-    resolver: zodResolver(signUpSchema),
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
+      rememberMe: false,
     },
-    mode: "onBlur",
   })
 
-  async function onSubmit(values: SignUpValues) {
-    try {
-      setIsLoading(true)
+  async function onSubmit(data: LoginValues) {
+    setIsLoading(true)
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      console.log(values)
-      setIsLoading(false)
+    console.log(data)
+    setIsLoading(false)
 
-      // Redirect to dashboard after successful sign-up
-      router.push("/dashboard")
-    } catch (error) {
-      console.error("Error during sign up:", error)
-      setIsLoading(false)
-    }
+    // Redirect to dashboard after successful login
+    router.push("/")
   }
 
   return (
@@ -66,28 +59,29 @@ export default function SignUpPage() {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-2">
             <div className="rounded-full bg-primary/10 p-2 text-primary">
-              <FolderKanban className="h-6 w-6" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-6 w-6"
+              >
+                <path d="M2 17a5 5 0 0 0 10 0c0-2.5-2.5-5-5-5s-5 2.5-5 5Z" />
+                <path d="M12 17a5 5 0 0 0 10 0c0-2.5-2.5-5-5-5s-5 2.5-5 5Z" />
+                <path d="M7 12a5 5 0 0 0-5-5c-2.5 0-5 2.5-5 5s2.5 5 5 5c2.5 0 5-2.5 5-5Z" />
+                <path d="M17 12a5 5 0 0 0-5-5c-2.5 0-5 2.5-5 5s2.5 5 5 5c2.5 0 5-2.5 5-5Z" />
+              </svg>
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-center">Join TaskUdo</CardTitle>
-          <CardDescription className="text-center">Enter your information to create your account</CardDescription>
+          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+          <CardDescription className="text-center">Enter your credentials to sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="email"
@@ -106,10 +100,18 @@ export default function SignUpPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Password</FormLabel>
+                      <Link
+                        href="/forgot-password"
+                        className="text-sm text-primary underline underline-offset-4 hover:text-primary/90"
+                      >
+                        Forgot password?
+                      </Link>
+                    </div>
                     <FormControl>
                       <div className="relative">
-                        <Input type={showPassword ? "text" : "password"} placeholder="Create a password" {...field} />
+                        <Input type={showPassword ? "text" : "password"} placeholder="Enter your password" {...field} />
                         <Button
                           type="button"
                           variant="ghost"
@@ -126,8 +128,21 @@ export default function SignUpPage() {
                         </Button>
                       </div>
                     </FormControl>
-                    <FormDescription>Password must be at least 8 characters long</FormDescription>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="rememberMe"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>Remember me</FormLabel>
+                    </div>
                   </FormItem>
                 )}
               />
@@ -135,31 +150,20 @@ export default function SignUpPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating account...
+                    Signing in...
                   </>
                 ) : (
-                  "Sign Up"
+                  "Sign In"
                 )}
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          <div className="text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
-            <Link href="#" className="underline underline-offset-4 hover:text-primary">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link href="#" className="underline underline-offset-4 hover:text-primary">
-              Privacy Policy
-            </Link>
-            .
-          </div>
+        <CardFooter className="flex justify-center">
           <div className="text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/login" className="text-primary underline underline-offset-4 hover:text-primary/90">
-              Sign in
+            Don't have an account?{" "}
+            <Link href="/signup" className="text-primary underline underline-offset-4 hover:text-primary/90">
+              Sign up
             </Link>
           </div>
         </CardFooter>

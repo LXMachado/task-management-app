@@ -24,6 +24,13 @@ export function AppHeader() {
   // This would come from your auth context in a real app
   const isLoggedIn = true
 
+  // User data - in a real app, this would come from your auth context
+  const user = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    avatar: "/avatar.png",
+  }
+
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Calendar", href: "/calendar", icon: Calendar },
@@ -40,15 +47,15 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-14 items-center px-4 sm:px-6">
         <div className="mr-4 flex">
-          <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
+          <Link href="/dashboard" className="mr-2 sm:mr-6 flex items-center space-x-2">
             <FolderKanban className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">TaskMaster</span>
+            <span className="hidden font-bold sm:inline-block">TaskUdo</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
+          <nav className="hidden md:flex items-center space-x-2 lg:space-x-6">
             {navigation.map((item) => (
               <Button key={item.name} variant="ghost" asChild className={pathname === item.href ? "bg-muted" : ""}>
                 <Link href={item.href} className="flex items-center text-sm font-medium">
@@ -68,13 +75,21 @@ export function AppHeader() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src="/avatar.png" alt="User avatar" />
-                      <AvatarFallback>TH</AvatarFallback>
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback>
+                        {user.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+                    {user.email}
+                  </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link href="/profile" className="flex w-full">
@@ -118,8 +133,26 @@ export function AppHeader() {
               <div className="flex flex-col space-y-6 py-4">
                 <Link href="/dashboard" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
                   <FolderKanban className="h-6 w-6" />
-                  <span className="font-bold">TaskMaster</span>
+                  <span className="font-bold">TaskUdo</span>
                 </Link>
+
+                {isLoggedIn && (
+                  <div className="flex items-center space-x-3 px-2">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback>
+                        {user.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="text-sm font-medium">{user.name}</p>
+                      <p className="text-xs text-muted-foreground">{user.email}</p>
+                    </div>
+                  </div>
+                )}
 
                 <nav className="flex flex-col space-y-1">
                   {navigation.map((item) => (
@@ -177,4 +210,3 @@ export function AppHeader() {
     </header>
   )
 }
-

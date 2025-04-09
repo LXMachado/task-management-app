@@ -3,7 +3,7 @@ import { KanbanBoard } from "@/components/kanban-board"
 import { TaskHeader } from "@/components/task-header"
 
 export const metadata: Metadata = {
-  title: "Task Management App - Dashboard",
+  title: "TaskUdo - Dashboard",
   description: "A comprehensive task management application with Google Calendar integration",
 }
 
@@ -15,4 +15,3 @@ export default function DashboardPage() {
     </main>
   )
 }
-

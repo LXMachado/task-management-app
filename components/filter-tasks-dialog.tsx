@@ -113,4 +113,3 @@ export function FilterTasksDialog({ open, onOpenChange }: FilterTasksDialogProps
     </Dialog>
   )
 }
-

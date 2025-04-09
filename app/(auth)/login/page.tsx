@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Eye, EyeOff, Loader2 } from "lucide-react"
+import { Eye, EyeOff, Loader2, FolderKanban } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -52,7 +52,7 @@ export default function LoginPage() {
       setIsLoading(false)
 
       // Redirect to dashboard after successful login
-      router.push("/")
+      router.push("/dashboard")
     } catch (error) {
       console.error("Error during login:", error)
       setIsLoading(false)
@@ -65,24 +65,10 @@ export default function LoginPage() {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-2">
             <div className="rounded-full bg-primary/10 p-2 text-primary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6"
-              >
-                <path d="M2 17a5 5 0 0 0 10 0c0-2.5-2.5-5-5-5s-5 2.5-5 5Z" />
-                <path d="M12 17a5 5 0 0 0 10 0c0-2.5-2.5-5-5-5s-5 2.5-5 5Z" />
-                <path d="M7 12a5 5 0 0 0-5-5c-2.5 0-5 2.5-5 5s2.5 5 5 5c2.5 0 5-2.5 5-5Z" />
-                <path d="M17 12a5 5 0 0 0-5-5c-2.5 0-5 2.5-5 5s2.5 5 5 5c2.5 0 5-2.5 5-5Z" />
-              </svg>
+              <FolderKanban className="h-6 w-6" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Welcome to TaskUdo</CardTitle>
           <CardDescription className="text-center">Enter your credentials to sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
@@ -177,4 +163,3 @@ export default function LoginPage() {
     </div>
   )
 }
-

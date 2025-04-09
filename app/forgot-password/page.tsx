@@ -5,7 +5,7 @@ import Link from "next/link"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrowLeft, Loader2, CheckCircle2, FolderKanban } from "lucide-react"
+import { ArrowLeft, Loader2, CheckCircle2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -30,23 +30,17 @@ export default function ForgotPasswordPage() {
     defaultValues: {
       email: "",
     },
-    mode: "onBlur",
   })
 
-  async function onSubmit(values: ForgotPasswordValues) {
-    try {
-      setIsLoading(true)
+  async function onSubmit(data: ForgotPasswordValues) {
+    setIsLoading(true)
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      console.log(values)
-      setIsLoading(false)
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error("Error during password reset:", error)
-      setIsLoading(false)
-    }
+    console.log(data)
+    setIsLoading(false)
+    setIsSubmitted(true)
   }
 
   return (
@@ -55,12 +49,24 @@ export default function ForgotPasswordPage() {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-2">
             <div className="rounded-full bg-primary/10 p-2 text-primary">
-              <FolderKanban className="h-6 w-6" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-6 w-6"
+              >
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-center">Reset your password</CardTitle>
           <CardDescription className="text-center">
-            Enter your TaskUdo email address and we'll send you a link to reset your password
+            Enter your email address and we'll send you a link to reset your password
           </CardDescription>
         </CardHeader>
         <CardContent>

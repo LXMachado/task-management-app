@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Task Management App",
+  title: "TaskUdo",
   description: "A comprehensive task management application with Google Calendar integration",
     generator: 'v0.dev'
 }
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`} suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans`}>
         <ThemeProvider defaultTheme="system" storageKey="task-app-theme">
           {children}
         </ThemeProvider>
@@ -30,7 +30,6 @@ export default function RootLayout({
     </html>
   )
 }
-
 
 
 import './globals.css'
