@@ -23,6 +23,9 @@ interface CustomCalendarProps {
   onDateSelect?: (date: Date) => void
   datesWithTasks?: Record<string, boolean>
   className?: string
+  selected?: Date
+  onSelect?: (date: Date) => void
+  initialFocus?: boolean
 }
 
 export function CustomCalendar({ selectedDate, onDateSelect, datesWithTasks = {}, className }: CustomCalendarProps) {

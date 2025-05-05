@@ -163,7 +163,7 @@ export function CreateTaskDialog({ open, onOpenChange, taskToEdit }: CreateTaskD
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" selected={dueDate} onSelect={setDueDate} initialFocus />
+                  <Calendar selected={dueDate} onSelect={setDueDate} initialFocus />
                 </PopoverContent>
               </Popover>
             </div>
