@@ -9,7 +9,7 @@ body {
 @layer utilities {
   .text-balance {
     -webkit-text-wrap: balance;
-    /* Replace text-wrap with overflow-wrap for better compatibility */
+    text-wrap: balance; /* Added for compatibility */
     overflow-wrap: break-word;
   }
 }
@@ -88,11 +88,10 @@ body {
 
 @layer base {
   * {
-    /* Ensure Tailwind CSS is configured properly to support @apply */
-    @apply border-border; /* Replace with equivalent CSS if necessary */
+    border: var(--border); /* Replaced @apply */
   }
   body {
-    /* Ensure Tailwind CSS is configured properly to support @apply */
-    @apply bg-background text-foreground; /* Replace with equivalent CSS if necessary */
+    background-color: var(--background); /* Replaced @apply */
+    color: var(--foreground); /* Replaced @apply */
   }
 }
