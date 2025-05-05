@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "TaskUdo",
   description: "A comprehensive task management application with Google Calendar integration",
-    generator: 'v0.dev'
+  generator: 'TaskUdo'
 }
 
 export default function RootLayout({
