@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function AppHeader() {
@@ -130,6 +130,7 @@ export function AppHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[240px] sm:w-[300px]">
+              <SheetTitle>Menu</SheetTitle>
               <div className="flex flex-col space-y-6 py-4">
                 <Link href="/dashboard" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
                   <FolderKanban className="h-6 w-6" />
