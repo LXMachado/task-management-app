@@ -67,30 +67,45 @@ export function CustomCalendar({ selectedDate, onDateSelect, datesWithTasks = {}
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="flex items-center justify-between mb-4">
-        <Button variant="outline" size="icon" onClick={handlePreviousMonth} className="h-8 w-8">
-          <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Previous month</span>
+      <div className="flex items-center justify-between mb-2 sm:mb-4">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={handlePreviousMonth}
+          className="h-8 w-8 sm:h-10 sm:w-10 shrink-0"
+          aria-label="Previous month"
+        >
+          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
 
-        <h2 className="text-base font-medium">{format(currentMonth, "MMMM yyyy")}</h2>
+        <h2 className="text-sm sm:text-base font-medium text-center flex-1 px-1">
+          {format(currentMonth, "MMMM yyyy")}
+        </h2>
 
-        <Button variant="outline" size="icon" onClick={handleNextMonth} className="h-8 w-8">
-          <ChevronRight className="h-4 w-4" />
-          <span className="sr-only">Next month</span>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={handleNextMonth}
+          className="h-8 w-8 sm:h-10 sm:w-10 shrink-0"
+          aria-label="Next month"
+        >
+          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
       </div>
 
-      <div className="calendar-grid">
-        <div className="grid grid-cols-7 gap-1 mb-2">
+      <div className="calendar-grid w-full">
+        <div className="grid grid-cols-7 gap-0.5 sm:gap-1 mb-1 sm:mb-2">
           {weekdays.map((day) => (
-            <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
+            <div
+              key={day}
+              className="text-center text-xs font-medium text-muted-foreground py-1 sm:py-2"
+            >
               {day}
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
           {weeks.flat().map((day, i) => {
             const isSelected = selectedDate ? isSameDay(day, selectedDate) : false
             const isCurrentMonth = isSameMonth(day, currentMonth)
@@ -103,15 +118,21 @@ export function CustomCalendar({ selectedDate, onDateSelect, datesWithTasks = {}
                 variant="ghost"
                 size="sm"
                 className={cn(
-                  "h-9 w-full p-0 font-normal rounded-md",
+                  "h-8 w-full sm:h-10 lg:h-12 p-0 font-normal rounded-md text-xs sm:text-sm",
+                  "min-h-[2rem] sm:min-h-[2.5rem] lg:min-h-[3rem]",
+                  "touch-manipulation select-none",
                   !isCurrentMonth && "text-muted-foreground opacity-50",
                   isSelected && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
                   dayIsToday && !isSelected && "bg-accent text-accent-foreground",
                   hasTask && !isSelected && "font-medium underline",
+                  "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
                 )}
                 onClick={() => onDateSelect?.(day)}
+                aria-label={`${format(day, "EEEE, MMMM d, yyyy")}${hasTask ? " (has tasks)" : ""}`}
               >
-                <time dateTime={format(day, "yyyy-MM-dd")}>{format(day, "d")}</time>
+                <time dateTime={format(day, "yyyy-MM-dd")} className="block">
+                  {format(day, "d")}
+                </time>
               </Button>
             )
           })}
