@@ -33,6 +33,7 @@ export function ThemeProvider({
 }: ThemeProviderProps) {
   const [theme, setTheme] = useLocalStorage<Theme>(storageKey, defaultTheme)
   const [mounted, setMounted] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
 
   // Update the theme when it changes
   useEffect(() => {
@@ -53,13 +54,10 @@ export function ThemeProvider({
   // Set mounted state after hydration
   useEffect(() => {
     setMounted(true)
+    setIsHydrated(true)
   }, [])
 
-  // Prevent flash of incorrect theme
-  if (!mounted) {
-    return <>{children}</>
-  }
-
+  // Always render children to prevent hydration mismatches
   return (
     <ThemeProviderContext.Provider
       value={{

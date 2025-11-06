@@ -25,7 +25,10 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${inter.variable} font-sans`}>
+      <body
+        className={`${inter.variable} font-sans`}
+        suppressHydrationWarning={true}
+      >
         <ThemeProvider defaultTheme="system" storageKey="task-app-theme">
           {children}
         </ThemeProvider>
