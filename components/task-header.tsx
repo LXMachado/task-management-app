@@ -37,17 +37,16 @@ export function TaskHeader() {
           <Filter className="h-4 w-4 mr-2" />
           Filter
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="h-9 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-foreground"
-          asChild
-        >
-          <Link href="/calendar">
+        <Link href="/calendar">
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-foreground"
+          >
             <Calendar className="h-4 w-4 mr-2" />
             Calendar
-          </Link>
-        </Button>
+          </Button>
+        </Link>
         <Button
           onClick={() => setCreateTaskOpen(true)}
           size="sm"
