@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { PlusCircle, Calendar, Filter, Sun, Moon } from "lucide-react"
 import { CreateTaskDialog } from "@/components/create-task-dialog"
@@ -40,9 +41,12 @@ export function TaskHeader() {
           variant="outline"
           size="sm"
           className="h-9 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-foreground"
+          asChild
         >
-          <Calendar className="h-4 w-4 mr-2" />
-          Calendar
+          <Link href="/calendar">
+            <Calendar className="h-4 w-4 mr-2" />
+            Calendar
+          </Link>
         </Button>
         <Button
           onClick={() => setCreateTaskOpen(true)}
